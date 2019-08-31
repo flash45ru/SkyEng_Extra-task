@@ -22,8 +22,8 @@ class Count
         //подготавливаем смассивы
         $arrayOne = str_split($turnOne);
         $arrayTwo = str_split($turnTwo);
-        for ($i = 0; $i < $count; $i++) {
 
+        for ($i = 0; $i < $count; $i++) {
             $one = array_shift($arrayOne);
             $two = array_shift($arrayTwo);
 
@@ -33,6 +33,7 @@ class Count
                 if ($one) $summary = $one;
                 if ($two) $summary = $two;
             }
+            
             $result[] = $summary;
         }
 
@@ -69,7 +70,7 @@ class Count
     }
 
     /**
-     * Вернёт количества итераций для for
+     * Вернёт количество итераций для for
      * @param string $numericOne
      * @param string $numericTwo
      * @return int
