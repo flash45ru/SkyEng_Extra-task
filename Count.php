@@ -6,14 +6,13 @@ class Count
     public $numericTwo;
 
     /**
-     * @param $numericOne
-     * @param $numericTwo
+     * Вернет сумму чисел
+     * @param string $numericOne
+     * @param string $numericTwo
      * @return int
      */
     public static function getSum($numericOne, $numericTwo)
     {
-        echo $numericOne. '<br>';
-        echo $numericTwo. '<br>';
         $count = self::getCount($numericOne, $numericTwo);
 
         //переворачиваем строки
@@ -38,8 +37,9 @@ class Count
         }
 
         $resultArray = self::getResult($result);
+
         $array = '';
-        foreach ($resultArray as $key => $value ) {
+        foreach ($resultArray as $key => $value) {
             $array .= $value;
         }
 
@@ -50,7 +50,8 @@ class Count
     }
 
     /**
-     * @param $result
+     * Вернет итоговый массива
+     * @param array $result
      * @return mixed
      */
     public static function getResult($result)
@@ -63,13 +64,14 @@ class Count
                 }
             }
         }
+
         return $result;
     }
 
     /**
-     * Получение количества итераций для for
-     * @param $numericOne
-     * @param $numericTwo
+     * Вернёт количества итераций для for
+     * @param string $numericOne
+     * @param string $numericTwo
      * @return int
      */
     public static function getCount($numericOne, $numericTwo)
