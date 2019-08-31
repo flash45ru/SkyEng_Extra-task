@@ -56,9 +56,11 @@ class Count
     public static function getResult($result)
     {
         for ($i = 0; $i <= count($result); $i++) {
-            if ($result[$i] >= 10) {
-                $result[$i] = $result[$i] - 10;
-                $result[$i + 1] = $result[$i + 1] + 1; //можно так писать?
+            if (isset($result[$i + 1])) {
+                if ($result[$i] >= 10) {
+                    $result[$i] = $result[$i] - 10;
+                    $result[$i + 1] += 1;
+                }
             }
         }
         return $result;
