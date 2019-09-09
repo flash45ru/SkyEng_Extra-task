@@ -11,7 +11,7 @@ class Count
      * @param $stringTwo
      * @return integer
      */
-    public static function getSum($stringOne, $stringTwo)
+    public function getSum($stringOne, $stringTwo)
     {
         $stringOne = self::checkString($stringOne);
         $stringTwo = self::checkString($stringTwo);
@@ -54,7 +54,7 @@ class Count
      * @param string $stringTwo
      * @return int
      */
-    public static function getCountIteration($stringOne, $stringTwo)
+    public function getCountIteration($stringOne, $stringTwo)
     {
         if (mb_strlen($stringOne) > mb_strlen($stringTwo)) {
             $count = mb_strlen($stringOne);
@@ -83,7 +83,7 @@ class Count
      * @param $array
      * @return array
      */
-    public static function getPreparedArray($array)
+    public function getPreparedArray($array)
     {
         for ($i = 0; $i <= count($array); $i++) {
             if (isset($array[$i + 1])) {
