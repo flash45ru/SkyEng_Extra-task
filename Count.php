@@ -2,87 +2,98 @@
 
 class Count
 {
-    public $numericOne;
-    public $numericTwo;
+    public $stringOne;
+    public $stringTwo;
 
     /**
-     * Вернет сумму чисел
-     * @param string $numericOne
-     * @param string $numericTwo
-     * @return int
+     * Возвращает сумму чисел
+     * @param $stringOne
+     * @param $stringTwo
+     * @return integer
      */
-    public static function getSum($numericOne, $numericTwo)
+    public static function getSum($stringOne, $stringTwo)
     {
-        $count = self::getCount($numericOne, $numericTwo);
+        $stringOne = self::checkString($stringOne);
+        $stringTwo = self::checkString($stringTwo);
 
-        //переворачиваем строки
-        $turnOne = strrev($numericOne);
-        $turnTwo = strrev($numericTwo);
+        $count = self::getCountIteration($stringOne, $stringTwo);
 
-        //подготавливаем смассивы
-        $arrayOne = str_split($turnOne);
-        $arrayTwo = str_split($turnTwo);
+        $arrayOne = self::revertStringAndGetArray($stringOne);
+        $arrayTwo = self::revertStringAndGetArray($stringTwo);
 
         for ($i = 0; $i < $count; $i++) {
-            $one = array_shift($arrayOne);
-            $two = array_shift($arrayTwo);
-
-            if (!empty($one) && !empty($two)) {
-                $summary = $one + $two;
-            } else {
-                if ($one) $summary = $one;
-                if ($two) $summary = $two;
-            }
-            
-            $result[] = $summary;
+            $array[] = (isset($arrayOne[$i]) ? $arrayOne[$i] : 0) + (isset($arrayTwo[$i]) ? $arrayTwo[$i] : 0);
         }
 
-        $resultArray = self::getResult($result);
+        $preparedArray = self::getPreparedArray($array);
 
-        $array = '';
-        foreach ($resultArray as $key => $value) {
-            $array .= $value;
+        $resultString = '';
+        foreach ($preparedArray as $key => $value) {
+            $resultString .= $value;
         }
 
-        $numeric = strrev($array);
+        $numeric = (count($arrayOne) < 1 && count($arrayTwo) < 1) ? strrev($resultString) : $stringOne + $stringTwo;
 
         return $numeric;
 
     }
 
     /**
-     * Вернет итоговый массива
-     * @param array $result
-     * @return mixed
+     * Оставит в строке только цифры
+     * @param $string
+     * @return false|int
      */
-    public static function getResult($result)
+    public function checkString($string)
     {
-        for ($i = 0; $i <= count($result); $i++) {
-            if (isset($result[$i + 1])) {
-                if ($result[$i] >= 10) {
-                    $result[$i] = $result[$i] - 10;
-                    $result[$i + 1] += 1;
+        return preg_replace('~\D+~', '', $string);
+    }
+
+    /**
+     * Возвращает количество итераций для for
+     * @param string $stringOne
+     * @param string $stringTwo
+     * @return int
+     */
+    public static function getCountIteration($stringOne, $stringTwo)
+    {
+        if (mb_strlen($stringOne) > mb_strlen($stringTwo)) {
+            $count = mb_strlen($stringOne);
+        } else {
+            $count = mb_strlen($stringTwo);
+        }
+
+        return $count;
+    }
+
+    /**
+     * Reverse a string and Convert a string to an array
+     * @param $string
+     * @return array
+     */
+    public function revertStringAndGetArray($string)
+    {
+        $revert = strrev($string);
+        $array = str_split($revert);
+
+        return $array;
+    }
+
+    /**
+     * Возвращает подготовленный массив
+     * @param $array
+     * @return array
+     */
+    public static function getPreparedArray($array)
+    {
+        for ($i = 0; $i <= count($array); $i++) {
+            if (isset($array[$i + 1])) {
+                if ($array[$i] >= 10) {
+                    $array[$i] = $array[$i] - 10;
+                    $array[$i + 1] += 1;
                 }
             }
         }
 
-        return $result;
-    }
-
-    /**
-     * Вернёт количество итераций для for
-     * @param string $numericOne
-     * @param string $numericTwo
-     * @return int
-     */
-    public static function getCount($numericOne, $numericTwo)
-    {
-        if (mb_strlen($numericOne) > mb_strlen($numericTwo)) {
-            $count = mb_strlen($numericOne);
-        } else {
-            $count = mb_strlen($numericTwo);
-        }
-
-        return $count;
+        return $array;
     }
 }
